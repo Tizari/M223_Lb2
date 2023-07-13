@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public AppUser addUser(String firstName, String lastName,
                            String email, String password) {
-        if (password == null || password == "" || email == null || email == "" ) {
+        if (password == null || password.equals("") || email == null || email.equals("")) {
             throw new InvalidEmailOrPasswordException();
         }
 
@@ -55,12 +55,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(Long id, String firstName, String lastName, String email) {
-        AppUserImpl user = getUserById(id);
-        user.setFirstname(firstName);
-        user.setLastname(lastName);
-        user.setEmail(email);
-        userRepository.updateUser(user);
+        AppUserImpl user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+            userRepository.save(user);
+        }
     }
+
 
 
 }

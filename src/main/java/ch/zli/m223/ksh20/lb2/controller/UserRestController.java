@@ -69,6 +69,7 @@ package ch.zli.m223.ksh20.lb2.controller;
         import ch.zli.m223.ksh20.lb2.service.exception.InvalidEmailOrPasswordException;
         import jakarta.servlet.http.HttpSession;
         import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.http.ResponseEntity;
         import org.springframework.stereotype.Controller;
         import org.springframework.ui.Model;
         import org.springframework.web.bind.annotation.*;
@@ -134,28 +135,34 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-    Map<String, String> getUser(@PathVariable Long id) {
-        AppUserImpl user = userService.getUserById(id);
-        HashMap<String, String> map = new HashMap<>();
-        if (Objects.equals(user.getEmail(), "") || user.getEmail().isEmpty()){
-            return map;
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+        AppUser user = userService.getUserById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
         }
-        map.put("firstName", user.getFirstName());
-        map.put("lastName", user.getLastName());
-        map.put("email", user.getEmail());
-        return map;
+
+        UserDto userDto = new UserDto(user);
+        return ResponseEntity.ok(userDto);
     }
 
-    @PutMapping("/{id}/update")
-    void update(@RequestBody UserInputDto userInput, @PathVariable Long id) {
-        userService.updateUser(id, userInput.firstName, userInput.lastName, userInput.email);
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        AppUser user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "/editUser";
     }
 
+    @PostMapping("/{id}/edit")
+    public String updateUser(@PathVariable Long id, @ModelAttribute("user") UserInputDto userInput) {
+        userService.updateUser(id, userInput.getFirstName(), userInput.getLastName(), userInput.getEmail());
+        return "redirect:/api/v1/users/" + id;
+    }
+//geht noch nicht
     @DeleteMapping("/{id}/delete")
-    void delete(Model model, @PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        List<AppUser> users = userService.getUserList();
-        model.addAttribute("users", users);
+        return ResponseEntity.noContent().build();
     }
 
 
