@@ -39,7 +39,7 @@ public class AppUserImpl implements AppUser {
     }
 
     /** For JPA use only */
-    protected AppUserImpl() {}
+    public AppUserImpl() {}
 
     @Override
     public Long getId() {
@@ -64,5 +64,33 @@ public class AppUserImpl implements AppUser {
     @Override
     public String getSurName() {
         return surName;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

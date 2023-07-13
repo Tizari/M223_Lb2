@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AppUser addUser(
-        String firstName, String shureName, 
+        String firstName, String surName,
         String email, String password
     ) {
         if (
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException();
         }
 
-        return userRepository.insertUser(firstName, shureName, email, password);
+        return userRepository.insertUser(firstName, surName, email, password);
     }
     
 }
