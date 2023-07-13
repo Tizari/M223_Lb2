@@ -37,6 +37,7 @@ public class AppUserImpl implements AppUser {
         this.email  = email;
         this.passwordHash  = password;
 
+        this.role = role;
         passwordHash = password; // DODO: hash it
     }
 
@@ -110,5 +111,13 @@ public class AppUserImpl implements AppUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

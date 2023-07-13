@@ -27,7 +27,7 @@ public class BookingRestController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/list")
+    @GetMapping("/all")
     List<BookingDto> getBookingList(){
         return bookingService.getBookingList().stream()
                 .map(booking -> new BookingDto(booking))

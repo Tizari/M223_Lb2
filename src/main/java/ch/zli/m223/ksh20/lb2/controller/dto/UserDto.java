@@ -8,12 +8,14 @@ public class UserDto {
     public String lastName;
     public String email;
     public String password;
+    public String role;
 
     public UserDto(AppUser user) {
         id = user.getId();
         firstName = user.getFirstName();
         lastName =user.getLastName();
         email = user.getUserName();
+        role = user.getRole();
     }
 
     public Long getId() {
@@ -54,5 +56,13 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
