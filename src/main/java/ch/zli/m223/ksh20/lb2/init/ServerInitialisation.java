@@ -23,7 +23,7 @@ public class ServerInitialisation implements ApplicationRunner {
         userRepository.insertUser("Mini", "Max", "mm@test.com", "minimax", "member");
         userRepository.insertUser("Lady", "gGaga", "lady@gaga.com", "isgaga", "guest");
         bookingRepository.insertBooking(LocalDate.of(2023, 6, 6), true, false, 1L);
-        bookingRepository.insertBooking(LocalDate.of(2023, 4, 5), false, false, 1L);
+        bookingRepository.insertBooking(LocalDate.of(2023, 4, 5), false, false, 2L);
         bookingRepository.insertBooking(LocalDate.of(2023, 12, 27), false, true, 1L);
     }
     

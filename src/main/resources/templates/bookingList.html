@@ -1,0 +1,22 @@
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Is Full Day</th>
+        <th>Accepted</th>
+        <th>User</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="booking : ${bookings}">
+        <td th:text="${booking.id}"></td>
+        <td th:text="${booking.date}"></td>
+        <td th:text="${booking.fullDay}"></td>
+        <td th:text="${booking.accepted}"></td>
+        <td>
+            <span th:each="user : ${users}" th:if="${user.id} == ${booking.userId}" th:text="${user.email}"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>

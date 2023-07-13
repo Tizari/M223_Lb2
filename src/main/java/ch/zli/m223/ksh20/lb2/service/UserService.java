@@ -5,6 +5,7 @@ import ch.zli.m223.ksh20.lb2.model.impl.AppUserImpl;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     List<AppUser> getUserList();
@@ -19,5 +20,7 @@ public interface UserService {
 
     void updateUser(Long id, String firstName, String lastName,
                     String email);
+
+    Optional<AppUser> getUserByEmail(String username);
 }
 
