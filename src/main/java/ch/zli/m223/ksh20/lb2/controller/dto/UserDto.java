@@ -5,14 +5,14 @@ import ch.zli.m223.ksh20.lb2.model.AppUser;
 public class UserDto {
     public Long id;
     public String firstName;
-    public String surName;
+    public String lastName;
     public String email;
     public String password;
 
     public UserDto(AppUser user) {
         id = user.getId();
         firstName = user.getFirstName();
-        surName =user.getSurName();
+        lastName =user.getLastName();
         email = user.getUserName();
     }
 
@@ -32,12 +32,12 @@ public class UserDto {
         this.firstName = firstName;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

@@ -1,7 +1,7 @@
 package ch.zli.m223.ksh20.lb2.controller.dto;
 
 public class UserInputDto {
-    public String firstName, surName, email, password;
+    public String firstName, lastName, email, password;
     public Long id;
 
     public String getFirstName() {
@@ -12,12 +12,12 @@ public class UserInputDto {
         this.firstName = firstName;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

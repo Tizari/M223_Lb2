@@ -1,42 +1,45 @@
 package ch.zli.m223.ksh20.lb2.model.impl;
-
-
 import ch.zli.m223.ksh20.lb2.model.AppUser;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
+
+import java.util.List;
+
+
 
 @Entity(name="AppUser")
 public class AppUserImpl implements AppUser {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(nullable = false)
     private String passwordHash;
 
-    private String firstName;
+    @Column()
+    private String role = "guest";
 
-    private String surName;
-
-    @Column(
-        nullable = false, 
-        unique = true)
-    private String email;
-
-        public AppUserImpl(
-        String firstName, String surName,
-        String email, String password
+    public AppUserImpl(
+            String firstName, String lastName,
+            String email, String password, String role
     ) {
         this.firstName  = firstName;
-        this.surName = surName;
+        this.lastName = lastName;
         this.email  = email;
         this.passwordHash  = password;
-        
+
         passwordHash = password; // DODO: hash it
     }
+
 
     /** For JPA use only */
     public AppUserImpl() {}
@@ -55,15 +58,30 @@ public class AppUserImpl implements AppUser {
     public String getPassword() {
         return passwordHash;
     }
-    
+
+    @Override
+    public String getRole() {
+        return role;
+    }
+
+    @Override
+    public void setFirstname(String firstName) {
+
+    }
+
+    @Override
+    public void setLastname(String lastName) {
+
+    }
+
     @Override
     public String getFirstName() {
         return firstName;
     }
 
     @Override
-    public String getSurName() {
-        return surName;
+    public String getLastName() {
+        return lastName;
     }
 
     public void setId(Long id) {
@@ -82,8 +100,8 @@ public class AppUserImpl implements AppUser {
         this.firstName = firstName;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
