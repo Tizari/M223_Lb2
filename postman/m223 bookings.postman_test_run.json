@@ -1,0 +1,154 @@
+{
+	"id": "8a3dcff2-d071-4e0b-8e64-1f7e538a641c",
+	"name": "m223 bookings",
+	"timestamp": "2023-07-14T13:11:39.220Z",
+	"collection_id": "28529653-ea333e93-3ac7-40cc-848f-4d041311e387",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-07-14T13:11:38.538Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "bf77cbe0-e70f-4821-8c9d-0d3015262611",
+			"name": "alle buchungen auflisten",
+			"url": "http://localhost:8080/api/v1/bookings/all",
+			"time": 36,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				36
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a58711b0-4bcd-4886-9a48-4b38df26dd87",
+			"name": "buchung nach id einsehen",
+			"url": "http://localhost:8080/api/v1/bookings/show/1",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				13
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "45f524c6-f399-44d5-8b61-9c78e8395a7a",
+			"name": "ungültige buchung nach id einsehen",
+			"url": "http://localhost:8080/api/v1/bookings/show/23878",
+			"time": 15,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				15
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "b8fbbdee-e6a3-4aa7-9641-6b25ec2d09af",
+			"name": "buchung editieren page",
+			"url": "http://localhost:8080/api/v1/bookings/edit/1",
+			"time": 32,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				32
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "911ff413-bb7d-4f0c-acda-4f508911a6de",
+			"name": "buchung erfolgreich editieren",
+			"url": "http://localhost:8080/api/v1/bookings/edit/1",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				13
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a9d59404-cc0f-4303-a3b8-1fd4cf099679",
+			"name": "buchung ungültig editieren",
+			"url": "http://localhost:8080/api/v1/bookings/edit/2",
+			"time": 40,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				40
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 149,
+	"collection": {
+		"requests": [
+			{
+				"id": "bf77cbe0-e70f-4821-8c9d-0d3015262611",
+				"method": "GET"
+			},
+			{
+				"id": "a58711b0-4bcd-4886-9a48-4b38df26dd87",
+				"method": "GET"
+			},
+			{
+				"id": "45f524c6-f399-44d5-8b61-9c78e8395a7a",
+				"method": "GET"
+			},
+			{
+				"id": "b8fbbdee-e6a3-4aa7-9641-6b25ec2d09af",
+				"method": "GET"
+			},
+			{
+				"id": "911ff413-bb7d-4f0c-acda-4f508911a6de",
+				"method": "POST"
+			},
+			{
+				"id": "a9d59404-cc0f-4303-a3b8-1fd4cf099679",
+				"method": "POST"
+			}
+		]
+	}
+}

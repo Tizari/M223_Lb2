@@ -1,0 +1,264 @@
+{
+	"id": "e3326527-b122-42c6-a7bb-0003bb96a15c",
+	"name": "m223 users",
+	"timestamp": "2023-07-14T13:09:24.472Z",
+	"collection_id": "28529653-1d573d9c-c83b-4a17-a59f-feac89e7a60b",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-07-14T13:09:23.525Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "9a937cc0-75a6-48f6-9292-7355a2cc4816",
+			"name": "erfolgreiche registrierung",
+			"url": "http://localhost:8080/api/v1/users/register",
+			"time": 17,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				17
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "5b614ef8-b5c6-4c73-bb0c-299ef89568a1",
+			"name": "erfolgreiche anmeldung mitglied",
+			"url": "http://localhost:8080/api/v1/users/login",
+			"time": 19,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				19
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "f22edccc-f94d-4b23-894f-1e149c055493",
+			"name": "registrierung mit vorhandenen daten",
+			"url": "http://localhost:8080/api/v1/users/register",
+			"time": 20,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				20
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "456c0795-72c0-4f2c-8341-5f7220835e63",
+			"name": "erfolgreiche anmeldung admin",
+			"url": "http://localhost:8080/api/v1/users/login",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				18
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "40e97db9-7203-4572-b7c9-36b586513e62",
+			"name": "ungültige anmeldedaten",
+			"url": "http://localhost:8080/api/v1/users/login",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				16
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "4e0b3128-35e4-42d0-a09d-6f97f33f7e03",
+			"name": "registrierung mit ungültigen daten",
+			"url": "http://localhost:8080/api/v1/users/register",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				18
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "9de1dbb0-480d-458d-a928-adb0cb98e579",
+			"name": "anmeldung mit ungültigen daten",
+			"url": "http://localhost:8080/api/v1/users/login",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				12
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "027bf589-cfa2-4204-bf37-0d27bbb0c29a",
+			"name": "user anzeigen mit id",
+			"url": "http://localhost:8080/api/v1/users/1?id=1",
+			"time": 77,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				77
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "31544527-d655-49b0-b16c-3959fa488bec",
+			"name": "user anzeigen mit ungültiger id",
+			"url": "http://localhost:8080/api/v1/users/?id=9",
+			"time": 37,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				37
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "16c3682a-5721-4ae9-b3cd-97924e968fc2",
+			"name": "userdaten ändern",
+			"url": "http://localhost:8080/api/v1/users/1/edit",
+			"time": 25,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				25
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "eadc1c2e-4c50-48cf-bd1a-57baddb68cc2",
+			"name": "userdaten ändern falsches id",
+			"url": "http://localhost:8080/api/v1/users/11/edit",
+			"time": 40,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				40
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 299,
+	"collection": {
+		"requests": [
+			{
+				"id": "9a937cc0-75a6-48f6-9292-7355a2cc4816",
+				"method": "POST"
+			},
+			{
+				"id": "5b614ef8-b5c6-4c73-bb0c-299ef89568a1",
+				"method": "POST"
+			},
+			{
+				"id": "f22edccc-f94d-4b23-894f-1e149c055493",
+				"method": "POST"
+			},
+			{
+				"id": "456c0795-72c0-4f2c-8341-5f7220835e63",
+				"method": "POST"
+			},
+			{
+				"id": "40e97db9-7203-4572-b7c9-36b586513e62",
+				"method": "POST"
+			},
+			{
+				"id": "4e0b3128-35e4-42d0-a09d-6f97f33f7e03",
+				"method": "POST"
+			},
+			{
+				"id": "9de1dbb0-480d-458d-a928-adb0cb98e579",
+				"method": "POST"
+			},
+			{
+				"id": "027bf589-cfa2-4204-bf37-0d27bbb0c29a",
+				"method": "GET"
+			},
+			{
+				"id": "31544527-d655-49b0-b16c-3959fa488bec",
+				"method": "GET"
+			},
+			{
+				"id": "16c3682a-5721-4ae9-b3cd-97924e968fc2",
+				"method": "GET"
+			},
+			{
+				"id": "eadc1c2e-4c50-48cf-bd1a-57baddb68cc2",
+				"method": "GET"
+			}
+		]
+	}
+}
