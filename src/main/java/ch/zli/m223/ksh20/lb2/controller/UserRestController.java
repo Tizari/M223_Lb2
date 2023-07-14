@@ -65,6 +65,8 @@ package ch.zli.m223.ksh20.lb2.controller;
         import ch.zli.m223.ksh20.lb2.model.AppUser;
         import ch.zli.m223.ksh20.lb2.model.impl.AppUserImpl;
         import ch.zli.m223.ksh20.lb2.repository.UserRepository;
+        import ch.zli.m223.ksh20.lb2.security.JwtResponse;
+        import ch.zli.m223.ksh20.lb2.security.JwtUtils;
         import ch.zli.m223.ksh20.lb2.service.UserService;
         import ch.zli.m223.ksh20.lb2.service.exception.InvalidEmailOrPasswordException;
         import jakarta.servlet.http.HttpSession;
@@ -84,6 +86,10 @@ public class UserRestController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
 
     @GetMapping("/all")
     public String showAll(Model model) {
@@ -106,7 +112,12 @@ public class UserRestController {
         if (optionalUser.isPresent()) {
             AppUser user = optionalUser.get();
             if (user.getPassword().equals(password)) {
-                session.setAttribute("user", user);
+                // Erzeuge das JWT-Token für den Benutzer
+                String token = jwtUtils.generateJwtToken(user.getUserName(), user.getRole(), user.getId());
+
+                // Speichere das Token in der Sitzung
+                session.setAttribute("jwtToken", token);
+
                 return "redirect:/api/v1/users/all";
             }
         }
@@ -117,6 +128,7 @@ public class UserRestController {
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new UserInputDto());
         return "/addUser";
+
     }
 
     @PostMapping("/register")
@@ -163,6 +175,16 @@ public class UserRestController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+
+    @GetMapping("/isAdmin")
+    Boolean isAdmin(
+            @RequestHeader("Authorization") String header
+    ){
+        String token = header.split(" ")[0].trim();
+        return jwtUtils.getRoleFromJwtToken(token).equals("admin");
     }
 
 
