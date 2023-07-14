@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Edit Booking</h1>
-<form action="#" th:action="@{/api/v1/bookings/add}" th:object="${booking}" method="post">
+<form  th:action="@{/api/v1/bookings/edit/{id}(id=${booking.id})}" th:object="${booking}" method="post">
   <div>
     <label>Date:</label>
     <input type="date" th:field="*{date}">

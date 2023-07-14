@@ -8,12 +8,16 @@ import ch.zli.m223.ksh20.lb2.model.Booking;
 import ch.zli.m223.ksh20.lb2.model.impl.AppUserImpl;
 import ch.zli.m223.ksh20.lb2.model.impl.BookingImpl;
 import ch.zli.m223.ksh20.lb2.repository.BookingRepository;
+import ch.zli.m223.ksh20.lb2.security.JwtUtils;
 import ch.zli.m223.ksh20.lb2.service.BookingService;
 import ch.zli.m223.ksh20.lb2.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -38,6 +42,9 @@ public class BookingRestController {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @GetMapping("/all")
     public String getAllBookings(Model model) {
@@ -75,10 +82,9 @@ public class BookingRestController {
 
     @PostMapping("/edit/{id}")
     public String updateBooking(@PathVariable Long id, @ModelAttribute("booking") BookingInputDto bookingInput) {
-        bookingService.updateBooking(id, bookingInput.getDate(), bookingInput.isFullDay(), bookingInput.isAccepted());
+        bookingService.updateBooking(bookingRepository.getReferenceById(id).getId(), bookingInput.getDate(), bookingInput.isFullDay(), bookingInput.isAccepted());
         return "redirect:/api/v1/bookings/show/" + id;
     }
-
 
 
 
@@ -118,8 +124,63 @@ public class BookingRestController {
         return "redirect:/api/v1/bookings/all";
     }
 
+/*
+
+@GetMapping("/add")
+public String showBookingForm(Model model, HttpServletRequest request) {
+    // Überprüfen des JWT-Tokens im Request-Header
+    String token = extractTokenFromRequest(request);
+    if (token == null || !jwtUtils.validateJwtToken(token)) {
+        // Ungültiges oder fehlendes JWT-Token, Fehler anzeigen oder Weiterleitung zu einer Fehlerseite
+        return "error";
+    }
+
+    // Extrahieren der Benutzerinformationen aus dem JWT-Token
+    String username = jwtUtils.getUsernameFromJwtToken(token);
+    String role = jwtUtils.getRoleFromJwtToken(token);
+    Long userId = jwtUtils.getIdFromJwtToken(token);
+
+    // Überprüfen der Benutzerrolle
+    if (!"ROLE_USER".equals(role)) {
+        // Benutzer hat keine Berechtigung, Fehler anzeigen oder Weiterleitung zu einer Fehlerseite
+        return "error";
+    }
+
+    // Buchungsformular anzeigen
+    BookingImpl booking = new BookingImpl();
+    booking.setUserId(userId);
+    model.addAttribute("booking", booking);
+    return "/createBooking";
+}
+
+    @PostMapping("/add")
+    public String addBooking(@ModelAttribute("booking") Booking booking, HttpSession session) {
+        // Überprüfen des JWT-Tokens im Request-Header
+        if (isUserLoggedIn(session)) {
+// Überprüfen, ob ein Benutzer angemeldet ist
+            String username = userService.getUserById(booking.getUserId()).getUserName();
+            if (username == null || username.isEmpty()) {
+                // Kein Benutzer angegeben, Fehler anzeigen oder Weiterleitung zu einer Fehlerseite
+                return "error";
+            }
+
+            // Hier kannst du den entsprechenden Code für die POST-Anforderung implementieren
+            // Verarbeite die übergebenen Buchungsinformationen und füge sie der Datenbank hinzu
+
+            // Beispiel: Speichern der Buchung in der Datenbank
+            bookingRepository.insertBooking(booking.getDate(), booking.isFullDay(), booking.isAccepted(), booking.getUserId());
 
 
+
+            return "redirect:/api/v1/bookings/all";
+
+
+        }
+
+        else return "error";
+    }
+
+ */
 
 
 
@@ -130,4 +191,17 @@ public class BookingRestController {
         model.addAttribute("users", bookings);
     }
 
+
+    private String extractTokenFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+    private boolean isUserLoggedIn(HttpSession session) {
+        String jwtToken = (String) session.getAttribute("jwtToken");
+        return jwtToken != null && jwtUtils.validateJwtToken(jwtToken);
+    }
 }
