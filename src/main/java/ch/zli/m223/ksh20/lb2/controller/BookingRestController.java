@@ -72,7 +72,7 @@ public class BookingRestController {
 
 
 
-
+//geht
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Booking booking = bookingService.getBookingById(id);
@@ -87,7 +87,8 @@ public class BookingRestController {
     }
 
 
-
+//geht noch nicht
+    /*
     @GetMapping("/add")
     public String showBookingForm(Model model, Principal principal) {
         // Überprüfen, ob ein Benutzer angemeldet ist
@@ -123,73 +124,31 @@ public class BookingRestController {
 
         return "redirect:/api/v1/bookings/all";
     }
-
-/*
-
-@GetMapping("/add")
-public String showBookingForm(Model model, HttpServletRequest request) {
-    // Überprüfen des JWT-Tokens im Request-Header
-    String token = extractTokenFromRequest(request);
-    if (token == null || !jwtUtils.validateJwtToken(token)) {
-        // Ungültiges oder fehlendes JWT-Token, Fehler anzeigen oder Weiterleitung zu einer Fehlerseite
-        return "error";
+*/
+    // nur mit postman
+@PostMapping("/add")
+void addBooking(@RequestBody BookingInputDto bookingInput,
+                @RequestHeader("Authorization") String header){
+    String token = header.split(" ")[0].trim();
+    if (jwtUtils.getRoleFromJwtToken(token) != null || !jwtUtils.getRoleFromJwtToken(token).equals("")){
+        bookingService.addBooking(bookingInput.getDate(), bookingInput.isFullDay, false,
+                jwtUtils.getIdFromJwtToken(token));
+    } else {
+        System.out.println("log in");
     }
-
-    // Extrahieren der Benutzerinformationen aus dem JWT-Token
-    String username = jwtUtils.getUsernameFromJwtToken(token);
-    String role = jwtUtils.getRoleFromJwtToken(token);
-    Long userId = jwtUtils.getIdFromJwtToken(token);
-
-    // Überprüfen der Benutzerrolle
-    if (!"ROLE_USER".equals(role)) {
-        // Benutzer hat keine Berechtigung, Fehler anzeigen oder Weiterleitung zu einer Fehlerseite
-        return "error";
-    }
-
-    // Buchungsformular anzeigen
-    BookingImpl booking = new BookingImpl();
-    booking.setUserId(userId);
-    model.addAttribute("booking", booking);
-    return "/createBooking";
 }
 
-    @PostMapping("/add")
-    public String addBooking(@ModelAttribute("booking") Booking booking, HttpSession session) {
-        // Überprüfen des JWT-Tokens im Request-Header
-        if (isUserLoggedIn(session)) {
-// Überprüfen, ob ein Benutzer angemeldet ist
-            String username = userService.getUserById(booking.getUserId()).getUserName();
-            if (username == null || username.isEmpty()) {
-                // Kein Benutzer angegeben, Fehler anzeigen oder Weiterleitung zu einer Fehlerseite
-                return "error";
-            }
-
-            // Hier kannst du den entsprechenden Code für die POST-Anforderung implementieren
-            // Verarbeite die übergebenen Buchungsinformationen und füge sie der Datenbank hinzu
-
-            // Beispiel: Speichern der Buchung in der Datenbank
-            bookingRepository.insertBooking(booking.getDate(), booking.isFullDay(), booking.isAccepted(), booking.getUserId());
-
-
-
-            return "redirect:/api/v1/bookings/all";
-
-
-        }
-
-        else return "error";
-    }
-
- */
-
-
-
+    // nur mit postman
     @DeleteMapping("/delete/{id}")
-    void deleteBooking(Model model, @PathVariable Long id){
+    void deleteBooking(Model model,
+                       @PathVariable Long id,
+                       @RequestHeader("Authorization") String header){
         bookingService.deleteBooking(id);
         List<Booking> bookings = bookingService.getBookingList();
         model.addAttribute("users", bookings);
+
     }
+
 
 
     private String extractTokenFromRequest(HttpServletRequest request) {

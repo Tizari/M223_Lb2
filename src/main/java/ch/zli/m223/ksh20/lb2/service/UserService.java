@@ -2,6 +2,7 @@ package ch.zli.m223.ksh20.lb2.service;
 
 import ch.zli.m223.ksh20.lb2.model.AppUser;
 import ch.zli.m223.ksh20.lb2.model.impl.AppUserImpl;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 
 import java.util.List;
@@ -22,5 +23,8 @@ public interface UserService {
                     String email);
 
     Optional<AppUser> getUserByEmail(String username);
+
+
+
 }
 
