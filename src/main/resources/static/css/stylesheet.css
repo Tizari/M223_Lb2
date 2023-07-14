@@ -1,0 +1,97 @@
+
+:root{
+    --ff-primary: 'Rubik', sans-serif;
+
+    --fw-reg: 300;
+    --fw-med: 400;
+    --fw-bold: 500;
+
+    --clr-white: #ffffff;
+    --clr-lightgrey: #E7E7E7FF;
+    --clr-blue: #9098e7;
+    --clr-lightblue: #b6bae7;
+
+    --fs-large: 32px;
+    --fs-med: 22px;
+    --fs-small: 18px;
+
+
+
+}
+body{
+    font-family: var(--ff-primary);
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+header{
+
+}
+main{
+    padding-top: 30px;
+}
+
+h1{
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-large);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    background-color: var(--clr-blue);
+    color: var(--clr-white);
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+}
+
+.btn:hover {
+    background-color: var(--clr-lightblue);
+}
+
+.text-field {
+    margin-top: 8px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.text-field:focus {
+    border-color: var(--clr-blue);
+    outline: none;
+}
+
+.text-field::placeholder {
+    color: #999999;
+}
+
+table{
+    background-color: var(--clr-lightblue);
+    border-color: var(--clr-blue);
+    width: 100%;
+    border-radius: 8px;
+    padding: 20px;
+
+
+}
+th{
+    font-weight: var(--fw-med);
+    font-size: var(--fs-med);
+    text-align: left;
+
+}
+td{
+    font-weight: var(--fw-reg);
+    font-size: var(--fs-small);
+}
