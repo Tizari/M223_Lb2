@@ -3,8 +3,17 @@
 <body>
 
 <h2>Registrierung</h2>
+<div th:if="${session.jwtToken != null}">
+  <!-- Anzeigen von Inhalten für angemeldete Benutzer -->
+  <p>Willkommen, angemeldeter Benutzer!</p>
+  <!-- Weitere Inhalte für angemeldete Benutzer -->
+</div>
 
-<form th.action="@{/register}" th:object="${user}" method="post">
+<div th:unless="${session.jwtToken != null}">
+  <!-- Anzeigen von Inhalten für nicht angemeldete Benutzer -->
+  <p>Bitte registriere dich.</p>
+  <!-- Anmeldeformular für nicht angemeldete Benutzer -->
+<form th.action="@{/login}" th:object="${user}" method="post">
   <label for="firstName">Vorname:</label><br>
   <input type="text" id="firstName" name="firstName" th:value="${user.firstName}"><br>
   <label for="lastName">Nachname:</label><br>
@@ -15,6 +24,7 @@
   <input type="password" id="password" name="password" th:value="${user.password}"><br><br>
   <input type="submit" value="Registrieren">
 </form>
+</div>
 
 
 </body>

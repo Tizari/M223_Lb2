@@ -132,8 +132,11 @@ public class UserRestController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") UserInputDto userInput, Model model) {
-        if (userInput.email== null || userInput.email.isEmpty() ||
+    public String registerUser(@ModelAttribute("user") UserInputDto userInput, Model model, HttpSession session) {
+        if (isUserLoggedIn(session)) {
+            return "redirect:/api/v1/users/all";
+        }
+        if (userInput.email == null || userInput.email.isEmpty() ||
                 userInput.password == null || userInput.password.isEmpty()) {
             throw new InvalidEmailOrPasswordException();
         }
@@ -143,8 +146,17 @@ public class UserRestController {
         user.setEmail(userInput.getEmail());
         user.setPasswordHash(userInput.getPassword());
         userService.addUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPasswordHash());
+
+        // Erzeuge das JWT-Token für den Benutzer
+        String token = jwtUtils.generateJwtToken(user.getUserName(), user.getRole(), user.getId());
+
+        // Speichere das Token in der Sitzung
+        session.setAttribute("jwtToken", token);
+
         return "redirect:/api/v1/users/all";
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
@@ -181,12 +193,17 @@ public class UserRestController {
 
     @GetMapping("/isAdmin")
     Boolean isAdmin(
-            @RequestHeader("Authorization") String header
+            @RequestHeader("/login") String header
     ){
         String token = header.split(" ")[0].trim();
         return jwtUtils.getRoleFromJwtToken(token).equals("admin");
     }
 
+
+    private boolean isUserLoggedIn(HttpSession session) {
+        String jwtToken = (String) session.getAttribute("jwtToken");
+        return jwtToken != null && jwtUtils.validateJwtToken(jwtToken);
+    }
 
 }
 
