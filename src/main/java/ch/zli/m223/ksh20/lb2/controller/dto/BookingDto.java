@@ -15,7 +15,7 @@ public class BookingDto {
         id = booking.getId();
         date = booking.getDate();
         isFullDay = booking.isFullDay();
-        accepted = booking.accepted();
+        accepted = booking.isAccepted();
         userId = booking.getUserId();
     }
 }

@@ -60,7 +60,7 @@ public class BookingImpl implements Booking {
     }
 
     @Override
-    public boolean accepted() {
+    public boolean isAccepted() {
         return accepted;
     }
 
